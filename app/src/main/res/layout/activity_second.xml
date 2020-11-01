@@ -9,33 +9,56 @@
 
     <!-- Content below header and above footer -->
 
-    <LinearLayout
-        android:id="@+id/content"
-        android:layout_width="fill_parent"
-        android:layout_height="0dp"
-        android:layout_weight="0.5"
-        android:gravity="center"
-        android:orientation="vertical">
 
-        <TextView
+        <LinearLayout
+            android:id="@+id/contacts"
             android:layout_width="fill_parent"
             android:layout_height="0dp"
             android:layout_weight="0.5"
-            android:text="Normal text box"
-            android:textSize="20sp"
-            tools:ignore="NestedWeights"
-            android:background="@drawable/border"
-            android:layout_margin="2dp" />
-        <TextView
+            android:layout_gravity="center"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/angry_btn"
+
+                android:layout_width="match_parent"
+                android:layout_height="34dp"
+                android:background="@drawable/contactbuttonshape"
+
+                android:gravity="left"
+                android:text="  + Novo Contato"
+                android:textColor="#787878"
+                android:textSize="20sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/content"
             android:layout_width="fill_parent"
             android:layout_height="0dp"
             android:layout_weight="0.5"
-            android:text="Morse text box"
-            android:textSize="20sp"
-            tools:ignore="NestedWeights"
-            android:background="@drawable/border"
-            android:layout_margin="2dp"/>
-    </LinearLayout>
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="5dp"
+                android:layout_margin="2dp"
+                android:layout_weight="0.5"
+                android:background="@drawable/border"
+                android:text="Ex:(11 12345-6789)"
+                android:textSize="20sp"
+                tools:ignore="NestedWeights" />
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="0dp"
+                android:layout_weight="0.5"
+                android:text="Telefone morse code"
+                android:textSize="20sp"
+                tools:ignore="NestedWeights"
+                android:background="@drawable/border"
+                android:layout_margin="2dp"/>
+        </LinearLayout>
+
 
     <!-- Footer aligned to bottom -->
 
@@ -50,7 +73,36 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="fill_parent"
-            android:layout_weight="0.1">
+            android:layout_weight="0.1"
+            android:orientation="vertical"
+            android:gravity="center">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5"
+                android:gravity="center">
+                <ImageButton
+                    android:id="@+id/mais"
+                    android:layout_width="100dp"
+                    android:layout_height="60dp"
+                    android:src="@drawable/mais"
+                    android:background="@drawable/auxiliarshape"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5"
+                android:gravity="center">
+                <ImageButton
+                    android:id="@+id/seta"
+                    android:layout_width="100dp"
+                    android:layout_height="60dp"
+                    android:src="@drawable/seta"
+                    android:background="@drawable/auxiliarshape"/>
+            </LinearLayout>
+
         </LinearLayout>
 
         <RelativeLayout
