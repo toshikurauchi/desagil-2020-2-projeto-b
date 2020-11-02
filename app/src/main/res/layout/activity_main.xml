@@ -10,7 +10,6 @@
     <!-- Content below header and above footer -->
 
     <LinearLayout
-        android:id="@+id/content"
         android:layout_width="fill_parent"
         android:layout_height="0dp"
         android:layout_weight="0.5"
@@ -18,19 +17,21 @@
         android:orientation="vertical">
 
         <TextView
+            android:id="@+id/textMorse"
             android:layout_width="fill_parent"
             android:layout_height="0dp"
             android:layout_weight="0.5"
-            android:text="Normal text box"
+            android:hint="Normal text box"
             android:textSize="20sp"
             tools:ignore="NestedWeights"
             android:background="@drawable/border"
             android:layout_margin="2dp" />
         <TextView
+            android:id="@+id/textTranslate"
             android:layout_width="fill_parent"
             android:layout_height="0dp"
             android:layout_weight="0.5"
-            android:text="Morse text box"
+            android:hint="Morse text box"
             android:textSize="20sp"
             tools:ignore="NestedWeights"
             android:background="@drawable/border"
