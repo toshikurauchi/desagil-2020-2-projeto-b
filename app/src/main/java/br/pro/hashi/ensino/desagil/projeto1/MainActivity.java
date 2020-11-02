@@ -1,5 +1,6 @@
 package br.pro.hashi.ensino.desagil.projeto1;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -41,7 +42,8 @@ public class MainActivity extends AppCompatActivity {
         }));
 
         checkButton.setOnClickListener((view -> {
-            Log.v("MainActivity", "Esperando outro merge!");
+            Intent intent = new Intent(this, SecondActivity.class);
+            startActivity(intent);
         }));
     }
 }

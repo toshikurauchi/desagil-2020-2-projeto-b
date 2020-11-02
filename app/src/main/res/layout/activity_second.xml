@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".MainActivity">
+
+    <!-- Content below header and above footer -->
+
+
+        <LinearLayout
+            android:id="@+id/contacts"
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.5"
+            android:layout_gravity="center"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/contactButton"
+
+                android:layout_width="match_parent"
+                android:layout_height="34dp"
+                android:background="@drawable/contactbuttonshape"
+
+                android:gravity="left"
+                android:text="  + Novo Contato"
+                android:textColor="#787878"
+                android:textSize="20sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.5"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/phoneText"
+                android:layout_width="fill_parent"
+                android:layout_height="5dp"
+                android:layout_margin="2dp"
+                android:layout_weight="0.5"
+                android:background="@drawable/border"
+                android:hint="Ex:(11 12345-6789)"
+                android:textSize="20sp"
+                tools:ignore="NestedWeights" />
+            <TextView
+                android:id="@+id/phoneMorse"
+                android:layout_width="fill_parent"
+                android:layout_height="0dp"
+                android:layout_weight="0.5"
+                android:hint="Telefone morse code"
+                android:textSize="20sp"
+                tools:ignore="NestedWeights"
+                android:background="@drawable/border"
+                android:layout_margin="2dp"/>
+        </LinearLayout>
+
+
+    <!-- Footer aligned to bottom -->
+
+    <LinearLayout
+        android:id="@+id/footer"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.5"
+        android:gravity="center"
+        android:background="#E5E5E5">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:layout_weight="0.1"
+            android:orientation="vertical"
+            android:gravity="center">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5"
+                android:gravity="center">
+                <ImageButton
+                    android:id="@+id/mais"
+                    android:layout_width="100dp"
+                    android:layout_height="60dp"
+                    android:src="@drawable/mais"
+                    android:background="@drawable/auxiliarshape"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5"
+                android:gravity="center">
+                <ImageButton
+                    android:id="@+id/seta"
+                    android:layout_width="100dp"
+                    android:layout_height="60dp"
+                    android:src="@drawable/seta"
+                    android:background="@drawable/auxiliarshape"/>
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:layout_weight="0.8">
+
+            <Button
+                android:id="@+id/morse_btn"
+                android:layout_width="200dp"
+                android:layout_height="200dp"
+                android:background="@drawable/buttonshape"
+                android:shadowColor="#43187A"
+                android:shadowDx="0"
+                android:shadowDy="0"
+                android:shadowRadius="5"
+                android:layout_centerInParent="true"
+                />
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:layout_weight="0.1"
+            android:orientation="vertical"
+            android:gravity="center">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5"
+                android:gravity="center">
+                <ImageButton
+                    android:id="@+id/backspace"
+                    android:layout_width="100dp"
+                    android:layout_height="60dp"
+                    android:src="@drawable/backspace"
+                    android:background="@drawable/auxiliarshape"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5"
+                android:gravity="center">
+                <ImageButton
+                    android:id="@+id/check"
+                    android:layout_width="100dp"
+                    android:layout_height="60dp"
+                    android:src="@drawable/aprovado"
+                    android:background="@drawable/auxiliarshape"/>
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>
