@@ -55,7 +55,7 @@
 
             android:gravity="left"
             android:hint="  S.O.S"
-            android:textColorHint="080808"
+            android:textColorHint="#000000"
             android:textSize="18sp" />
 
         <Button
@@ -67,7 +67,7 @@
 
             android:gravity="left"
             android:hint="  Logo te respondo"
-            android:textColorHint="080808"
+            android:textColorHint="#000000"
             android:textSize="18sp" />
 
         <TextView

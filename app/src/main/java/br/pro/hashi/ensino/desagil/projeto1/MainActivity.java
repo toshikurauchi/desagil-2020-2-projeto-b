@@ -15,6 +15,7 @@ public class MainActivity extends AppCompatActivity {
     private ImageButton backspaceButton;
     private TextView morseText;
     private TextView translatedText;
+    private Translator translator;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,12 +25,18 @@ public class MainActivity extends AppCompatActivity {
         morseButton = findViewById(R.id.morse_btn);
         checkButton = findViewById(R.id.check);
         backspaceButton = findViewById(R.id.backspace);
-        morseText = findViewById(R.id.textMorse);
-        translatedText = findViewById(R.id.textTranslate);
+        translatedText = findViewById(R.id.textMorse);
+        morseText = findViewById(R.id.textTranslate);
+
+        translator = new Translator();
 
         morseButton.setOnClickListener((view -> {
-            morseText.setText(morseText.getText() + "Clicked ");
-            translatedText.setText(translatedText.getText() + "Clicked ");
+            morseText.setText(morseText.getText() + ".");
+        }));
+
+        morseButton.setOnLongClickListener((view -> {
+            morseText.setText(morseText.getText() + "-");
+            return true;
         }));
 
         backspaceButton.setOnClickListener((view -> {
