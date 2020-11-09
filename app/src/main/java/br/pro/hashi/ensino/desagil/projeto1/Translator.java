@@ -14,8 +14,28 @@ public class Translator {
     // Você deve mudar o recheio deste construtor,
     // de acordo com os requisitos não-funcionais.
     public Translator() {
-        root = null;
-        map = null;
+        map = new HashMap<>();
+        //char[] alphanumeric = " etianmsurwdkgohvf!l@pjbxcyzq#$54%3&*(2)[]{}<>16ç;:?/|,7.£¢8+90".toCharArray();
+        char[] alphanumeric = " etianmsurwdkgohvf l pjbxcyzq  54 3   2       16       7   8 90".toCharArray();
+        root = new Node(alphanumeric[0]);
+        map.put(alphanumeric[0], root);
+        LinkedList<Node> nodes = new LinkedList<>();
+        nodes.add(root);
+        for(int i=1;i<alphanumeric.length;i++){
+            nodes.add(new Node(alphanumeric[i]));
+        }
+        for(int i=0;i<nodes.size()/2;i++){
+            Node node = nodes.get(i);
+            Node leftChild = nodes.get(2*i+1);
+            Node rightChild = nodes.get(2*i+2);
+            leftChild.setParent(node);
+            rightChild.setParent(node);
+            node.setLeft(leftChild);
+            node.setRight(rightChild);
+        }
+        for(int i=0;i<nodes.size();i++){
+            map.put(nodes.get(i).getValue(), nodes.get(i));
+        }
     }
 
 
