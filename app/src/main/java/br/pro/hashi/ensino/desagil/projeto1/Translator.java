@@ -58,14 +58,32 @@ public class Translator {
     // Você deve mudar o recheio deste método, de
     // acordo com os requisitos não-funcionais.
     public String charToMorse(char c) {
-        return " ";
+        String morseText = "";
+        Node actualNode = map.get(c);
+        Node parent = actualNode.getParent();
+        while(parent != null){
+            if(parent.getLeft() == actualNode){
+                morseText = morseText.concat(".");
+            }
+            else{
+                morseText = morseText.concat("-");
+            }
+            actualNode = parent;
+            parent = actualNode.getParent();
+        }
+        return new StringBuilder(morseText).reverse().toString();
     }
 
 
     // Você deve mudar o recheio deste método, de
     // acordo com os requisitos não-funcionais.
     public LinkedList<String> getCodes() {
-        return new LinkedList<>();
+        char[] alphanumeric = " etianmsurwdkgohvf l pjbxcyzq  54 3   2       16       7   8 90".replace(" ","").toCharArray();
+        LinkedList<String> codes = new LinkedList<>();
+        for(char c: alphanumeric){
+            codes.add(this.charToMorse(c));
+        }
+        return codes;
     }
 
 }
