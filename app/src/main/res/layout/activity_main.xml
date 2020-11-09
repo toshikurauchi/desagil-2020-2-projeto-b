@@ -8,34 +8,92 @@
     tools:context=".MainActivity">
 
     <!-- Content below header and above footer -->
+    <LinearLayout
+        android:id="@+id/Headline"
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.1"
+        android:layout_gravity="center"
+        android:orientation="vertical"
+        android:background="#8630F4">
+        <TextView
+            android:id="@+id/HeadlineText"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.1"
+            android:hint="      MorseText"
+            android:textColorHint="#FFFFFF"
+            android:textSize="20sp"
+            tools:ignore="NestedWeights"
+            android:layout_margin="2dp"/>
+    </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/contacts"
         android:layout_width="fill_parent"
         android:layout_height="0dp"
         android:layout_weight="0.5"
+        android:layout_gravity="center"
+        android:orientation="vertical">
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="71dp"
+        android:layout_weight="0.2"
+        android:background="#B1B1B1"
         android:gravity="center"
         android:orientation="vertical">
+
+        <Button
+            android:id="@+id/textbutton1"
+
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:background="@drawable/textbuttonshape"
+
+            android:gravity="left"
+            android:hint="  S.O.S"
+            android:textColorHint="080808"
+            android:textSize="18sp" />
+
+        <Button
+            android:id="@+id/textbutton2"
+
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:background="@drawable/textbuttonshape"
+
+            android:gravity="left"
+            android:hint="  Logo te respondo"
+            android:textColorHint="080808"
+            android:textSize="18sp" />
 
         <TextView
             android:id="@+id/textMorse"
             android:layout_width="fill_parent"
             android:layout_height="0dp"
-            android:layout_weight="0.5"
-            android:hint="Normal text box"
-            android:textSize="20sp"
-            tools:ignore="NestedWeights"
+            android:layout_margin="6dp"
+            android:layout_weight="0.1"
             android:background="@drawable/border"
-            android:layout_margin="2dp" />
+            android:backgroundTint="#FFFFFF"
+            android:hint="  Normal text box"
+            android:textSize="20sp"
+            tools:ignore="NestedWeights" />
+
+
         <TextView
             android:id="@+id/textTranslate"
             android:layout_width="fill_parent"
             android:layout_height="0dp"
-            android:layout_weight="0.5"
-            android:hint="Morse text box"
-            android:textSize="20sp"
-            tools:ignore="NestedWeights"
+            android:layout_margin="6dp"
+            android:layout_weight="0.1"
             android:background="@drawable/border"
-            android:layout_margin="2dp"/>
+            android:backgroundTint="#FFFFFF"
+            android:hint="  Morse text box"
+            android:textSize="20sp"
+            tools:ignore="NestedWeights" />
     </LinearLayout>
 
     <!-- Footer aligned to bottom -->
@@ -47,31 +105,6 @@
         android:layout_weight="0.5"
         android:gravity="center"
         android:background="#E5E5E5">
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="fill_parent"
-            android:layout_weight="0.1">
-        </LinearLayout>
-
-        <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="fill_parent"
-            android:layout_weight="0.8">
-
-            <Button
-                android:id="@+id/morse_btn"
-                android:layout_width="200dp"
-                android:layout_height="200dp"
-                android:background="@drawable/buttonshape"
-                android:shadowColor="#43187A"
-                android:shadowDx="0"
-                android:shadowDy="0"
-                android:shadowRadius="5"
-                android:layout_centerInParent="true"
-                />
-
-        </RelativeLayout>
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -108,6 +141,34 @@
 
         </LinearLayout>
 
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:layout_weight="0.8">
+
+            <Button
+                android:id="@+id/morse_btn"
+                android:layout_width="200dp"
+                android:layout_height="200dp"
+                android:background="@drawable/buttonshape"
+                android:shadowColor="#43187A"
+                android:shadowDx="0"
+                android:shadowDy="0"
+                android:shadowRadius="5"
+                android:layout_centerInParent="true"
+                />
+
+        </RelativeLayout>
+
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/Bottom"
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.12"
+        android:layout_gravity="center"
+        android:orientation="vertical"
+        android:background="#8630F4">
     </LinearLayout>
 
 </LinearLayout>
