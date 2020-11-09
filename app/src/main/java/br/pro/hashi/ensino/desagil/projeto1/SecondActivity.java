@@ -12,8 +12,6 @@ public class SecondActivity extends AppCompatActivity {
     private Button contactButton;
     private ImageButton checkButton;
     private ImageButton backspaceButton;
-    private ImageButton plusButton;
-    private ImageButton arrowButton;
     private TextView phoneText;
     private TextView phoneMorseText;
 
@@ -26,8 +24,6 @@ public class SecondActivity extends AppCompatActivity {
         contactButton = findViewById(R.id.contactButton);
         checkButton = findViewById(R.id.check);
         backspaceButton = findViewById(R.id.backspace);
-        plusButton = findViewById(R.id.mais);
-        arrowButton = findViewById(R.id.seta);
         phoneText = findViewById(R.id.phoneText);
         phoneMorseText = findViewById(R.id.phoneMorse);
 
