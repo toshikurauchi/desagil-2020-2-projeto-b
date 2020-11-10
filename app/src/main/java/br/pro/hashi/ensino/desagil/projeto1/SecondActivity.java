@@ -17,8 +17,9 @@ public class SecondActivity extends AppCompatActivity {
     private ImageButton backspaceButton;
     private TextView morseText;
     private TextView translatedText;
+    private ImageButton slashButton;
+    private ImageButton spaceButton;
     private Translator translator;
-    private LinkedList<String> codes;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +27,8 @@ public class SecondActivity extends AppCompatActivity {
         setContentView(R.layout.activity_second);
 
         morseButton = findViewById(R.id.morse_btn);
+        slashButton = findViewById(R.id.slashButton);
+        spaceButton = findViewById(R.id.spaceButton);
         contactButton = findViewById(R.id.contactButton);
         checkButton = findViewById(R.id.check);
         backspaceButton = findViewById(R.id.backspace);
@@ -41,6 +44,22 @@ public class SecondActivity extends AppCompatActivity {
         morseButton.setOnLongClickListener((view -> {
             morseText.setText(morseText.getText() + "-");
             return true;
+        }));
+
+        slashButton.setOnClickListener((view -> {
+            morseText.setText(morseText.getText() + " / ");
+
+            String[] morseTextArray = morseText.getText().toString().split(" ");
+            char newLetter = translator.morseToChar(morseTextArray[morseTextArray.length - 2]);
+            translatedText.setText(translatedText.getText().toString() + newLetter + " ");
+        }));
+
+        spaceButton.setOnClickListener((view -> {
+            morseText.setText(morseText.getText() + " ");
+
+            String[] morseTextArray = morseText.getText().toString().split(" ");
+            char newLetter = translator.morseToChar(morseTextArray[morseTextArray.length - 1]);
+            translatedText.setText(translatedText.getText().toString() + newLetter);
         }));
 
         backspaceButton.setOnClickListener((view -> {
