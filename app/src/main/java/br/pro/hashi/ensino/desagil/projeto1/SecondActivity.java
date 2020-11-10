@@ -20,6 +20,7 @@ public class SecondActivity extends AppCompatActivity {
     private ImageButton slashButton;
     private ImageButton spaceButton;
     private Translator translator;
+    private Button cuidadorButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +35,7 @@ public class SecondActivity extends AppCompatActivity {
         backspaceButton = findViewById(R.id.backspace);
         translatedText = findViewById(R.id.textMorse);
         morseText = findViewById(R.id.textTranslate);
+        cuidadorButton = findViewById(R.id.cuidadorButton);
 
         translator = new Translator();
 
@@ -69,6 +71,11 @@ public class SecondActivity extends AppCompatActivity {
             if(translatedText.getText().toString().length() > 0) {
                 translatedText.setText(translatedText.getText().toString().substring(0, translatedText.getText().toString().length() - 1));
             }
+        }));
+
+        cuidadorButton.setOnClickListener((view -> {
+            morseText.setText("..... ..... ..... ..... ..... ..... ..... .....");
+            translatedText.setText("55555555");
         }));
 
     }
