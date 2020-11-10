@@ -46,9 +46,8 @@
     <LinearLayout
         android:id="@+id/contacts"
         android:layout_width="fill_parent"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_weight="0.5"
         android:orientation="vertical">
 
         <Button
@@ -60,6 +59,27 @@
 
             android:gravity="left"
             android:text="  + Novo Contato"
+            android:textColor="#787878"
+            android:textSize="20sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/cuidador"
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_gravity="center"
+        android:layout_weight="0.5"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/cuidadorButton"
+
+            android:layout_width="match_parent"
+            android:layout_height="34dp"
+            android:background="@drawable/contactbuttonshape"
+
+            android:gravity="left"
+            android:text="  Cuidador"
             android:textColor="#787878"
             android:textSize="20sp" />
     </LinearLayout>
@@ -162,6 +182,41 @@
                 />
 
         </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:layout_weight="0.1"
+            android:orientation="vertical"
+            android:gravity="center">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5"
+                android:gravity="center">
+                <ImageButton
+                    android:id="@+id/spaceButton"
+                    android:layout_width="100dp"
+                    android:layout_height="60dp"
+                    android:src="@drawable/space"
+                    android:background="@drawable/auxiliarshape"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5"
+                android:gravity="center">
+                <ImageButton
+                    android:id="@+id/slashButton"
+                    android:layout_width="100dp"
+                    android:layout_height="60dp"
+                    android:src="@drawable/slash"
+                    android:background="@drawable/auxiliarshape"/>
+            </LinearLayout>
+
+        </LinearLayout>
 
     </LinearLayout>
 
