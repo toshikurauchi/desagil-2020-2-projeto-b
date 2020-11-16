@@ -11,6 +11,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.LinkedList;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class SecondActivity extends AppCompatActivity {
 
@@ -20,17 +22,11 @@ public class SecondActivity extends AppCompatActivity {
     private ImageButton backspaceButton;
     private TextView morseText;
     private TextView translatedText;
-    private ImageButton slashButton;
-    private ImageButton spaceButton;
     private Translator translator;
     private Button cuidadorButton;
-    //private Intent intent = getIntent();
-    //private String message = intent.getStringExtra("Message");
+    private Timer slashTimer, spaceTimer;
+    private long timerDelay;
 
-    private void showToast(String text) {
-        Toast toast = Toast.makeText(this, text, Toast.LENGTH_SHORT);
-        toast.show();
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,8 +34,6 @@ public class SecondActivity extends AppCompatActivity {
         setContentView(R.layout.activity_second);
 
         morseButton = findViewById(R.id.morse_btn);
-        slashButton = findViewById(R.id.slashButton);
-        spaceButton = findViewById(R.id.spaceButton);
         contactButton = findViewById(R.id.contactButton);
         checkButton = findViewById(R.id.aprovado);
         backspaceButton = findViewById(R.id.backspace);
@@ -49,41 +43,54 @@ public class SecondActivity extends AppCompatActivity {
 
         translator = new Translator();
 
+        timerDelay = 1600;
+
         Intent intent = getIntent();
         String message = intent.getStringExtra("Message");
 
         morseButton.setOnClickListener((view -> {
             morseText.setText(morseText.getText() + ".");
+
+            if(slashTimer != null) {
+                slashTimer.cancel();
+                spaceTimer.cancel();
+            }
+            createSlashTimer();
+            createSpaceTimer();
+
         }));
 
         morseButton.setOnLongClickListener((view -> {
             morseText.setText(morseText.getText() + "-");
+
+            if(slashTimer != null) {
+                slashTimer.cancel();
+                spaceTimer.cancel();
+            }
+            createSlashTimer();
+            createSpaceTimer();
+
             return true;
-        }));
-
-        slashButton.setOnClickListener((view -> {
-            morseText.setText(morseText.getText() + " / ");
-
-            String[] morseTextArray = morseText.getText().toString().split(" ");
-            char newLetter = translator.morseToChar(morseTextArray[morseTextArray.length - 2]);
-            translatedText.setText(translatedText.getText().toString() + newLetter + " ");
-        }));
-
-        spaceButton.setOnClickListener((view -> {
-            morseText.setText(morseText.getText() + " ");
-
-            String[] morseTextArray = morseText.getText().toString().split(" ");
-            char newLetter = translator.morseToChar(morseTextArray[morseTextArray.length - 1]);
-            translatedText.setText(translatedText.getText().toString() + newLetter);
         }));
 
         backspaceButton.setOnClickListener((view -> {
             if(morseText.getText().toString().length() > 0) {
-                morseText.setText(morseText.getText().toString().substring(0, morseText.getText().toString().length() - 1));
+                String[] substringsMorse = morseText.getText().toString().split(" ");
+                morseText.setText("");
+
+                for(int i = 0; i < substringsMorse.length - 1; i++){
+                    morseText.setText(morseText.getText() + substringsMorse[i] + " ");
+                }
             }
             if(translatedText.getText().toString().length() > 0) {
                 translatedText.setText(translatedText.getText().toString().substring(0, translatedText.getText().toString().length() - 1));
             }
+
+            if(slashTimer != null) {
+                slashTimer.cancel();
+            }
+            createSlashTimer();
+
         }));
 
         cuidadorButton.setOnClickListener((view -> {
@@ -108,5 +115,62 @@ public class SecondActivity extends AppCompatActivity {
             morseText.setText("");
         }));
 
+    }
+
+    private void createSlashTimer() {
+        TimerTask slashTask = new TimerTask() {
+            @Override
+            public void run() {
+                if(morseText.getText().length() == 0){
+                    return;
+                }
+                morseText.setText(morseText.getText() + "/ ");
+                translatedText.setText(translatedText.getText().toString() + " ");
+            }
+        };
+
+        slashTimer = new Timer();
+
+        slashTimer.schedule(slashTask, timerDelay);
+    }
+
+    private void createSpaceTimer() {
+        TimerTask spaceTask = new TimerTask() {
+            @Override
+            public void run() {
+                morseText.setText(morseText.getText() + " ");
+
+                String[] morseTextArray = morseText.getText().toString().split(" ");
+                char newLetter = translator.morseToChar(morseTextArray[morseTextArray.length - 1]);
+
+                if(newLetter == '@'){
+                    deleteMistake();
+                    return;
+                }
+
+                translatedText.setText(translatedText.getText().toString() + newLetter);
+            }
+        };
+
+        spaceTimer = new Timer();
+
+        spaceTimer.schedule(spaceTask, (int)(timerDelay * (3.0 / 7.0)));
+    }
+
+    private void deleteMistake(){
+        String[] substringsMorse = morseText.getText().toString().split(" ");
+        morseText.setText("");
+
+        for(int i = 0; i < substringsMorse.length - 1; i++){
+            morseText.setText(morseText.getText() + substringsMorse[i] + " ");
+        }
+
+        slashTimer.cancel();
+        spaceTimer.cancel();
+    }
+
+    private void showToast(String text) {
+        Toast toast = Toast.makeText(this, text, Toast.LENGTH_SHORT);
+        toast.show();
     }
 }
