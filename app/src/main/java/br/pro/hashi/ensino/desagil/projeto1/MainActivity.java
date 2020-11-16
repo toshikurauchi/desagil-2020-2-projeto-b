@@ -8,18 +8,17 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 public class MainActivity extends AppCompatActivity {
 
-    private Button morseButton;
-    private ImageButton checkButton;
-    private ImageButton backspaceButton;
-    private Button frase1Button;
-    private Button frase2Button;
-    private TextView morseText;
-    private TextView translatedText;
-    private ImageButton slashButton;
-    private ImageButton spaceButton;
+    private ImageButton checkButton, backspaceButton;
+    private Button frase1Button, frase2Button, morseButton;
+    private TextView morseText, translatedText;
     private Translator translator;
+    private Timer slashTimer, spaceTimer;
+    private long timerDelay;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,8 +26,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         morseButton = findViewById(R.id.morse_btn);
-        slashButton = findViewById(R.id.slashButton);
-        spaceButton = findViewById(R.id.spaceButton);
 
         frase1Button = findViewById(R.id.frasePronta1);
         frase2Button = findViewById(R.id.frasePronta2);
@@ -40,38 +37,51 @@ public class MainActivity extends AppCompatActivity {
 
         translator = new Translator();
 
+        timerDelay = 1600;
+
         morseButton.setOnClickListener((view -> {
             morseText.setText(morseText.getText() + ".");
+
+            if(slashTimer != null) {
+                slashTimer.cancel();
+                spaceTimer.cancel();
+            }
+            createSlashTimer();
+            createSpaceTimer();
+
         }));
 
         morseButton.setOnLongClickListener((view -> {
             morseText.setText(morseText.getText() + "-");
+
+            if(slashTimer != null) {
+                slashTimer.cancel();
+                spaceTimer.cancel();
+            }
+            createSlashTimer();
+            createSpaceTimer();
+
             return true;
-        }));
-
-        slashButton.setOnClickListener((view -> {
-            morseText.setText(morseText.getText() + " / ");
-
-            String[] morseTextArray = morseText.getText().toString().split(" ");
-            char newLetter = translator.morseToChar(morseTextArray[morseTextArray.length - 2]);
-            translatedText.setText(translatedText.getText().toString() + newLetter + " ");
-        }));
-
-        spaceButton.setOnClickListener((view -> {
-            morseText.setText(morseText.getText() + " ");
-
-            String[] morseTextArray = morseText.getText().toString().split(" ");
-            char newLetter = translator.morseToChar(morseTextArray[morseTextArray.length - 1]);
-            translatedText.setText(translatedText.getText().toString() + newLetter);
         }));
 
         backspaceButton.setOnClickListener((view -> {
             if(morseText.getText().toString().length() > 0) {
-                morseText.setText(morseText.getText().toString().substring(0, morseText.getText().toString().length() - 1));
+                String[] substringsMorse = morseText.getText().toString().split(" ");
+                morseText.setText("");
+
+                for(int i = 0; i < substringsMorse.length - 1; i++){
+                    morseText.setText(morseText.getText() + substringsMorse[i] + " ");
+                }
             }
             if(translatedText.getText().toString().length() > 0) {
                 translatedText.setText(translatedText.getText().toString().substring(0, translatedText.getText().toString().length() - 1));
             }
+
+            if(slashTimer != null) {
+                slashTimer.cancel();
+            }
+            createSlashTimer();
+
         }));
 
         checkButton.setOnClickListener((view -> {
@@ -80,13 +90,66 @@ public class MainActivity extends AppCompatActivity {
         }));
 
         frase1Button.setOnClickListener((view -> {
-            morseText.setText(morseText.getText() + " ... --- ...");
+            morseText.setText(morseText.getText() + "... --- ...");
             translatedText.setText(translatedText.getText() + " SOS");
         }));
 
         frase2Button.setOnClickListener((view -> {
-            morseText.setText(morseText.getText() + " .-.. --- --. --- / - . / .-. . ... .--. --- -. -.. ---");
+            morseText.setText(morseText.getText() + ".-.. --- --. --- / - . / .-. . ... .--. --- -. -.. ---");
             translatedText.setText(translatedText.getText() + " Logo te respondo");
         }));
     }
+
+    private void createSlashTimer() {
+        TimerTask slashTask = new TimerTask() {
+            @Override
+            public void run() {
+                if(morseText.getText().length() == 0){
+                    return;
+                }
+                morseText.setText(morseText.getText() + "/ ");
+                translatedText.setText(translatedText.getText().toString() + " ");
+            }
+        };
+
+        slashTimer = new Timer();
+
+        slashTimer.schedule(slashTask, timerDelay);
+    }
+
+    private void createSpaceTimer() {
+        TimerTask spaceTask = new TimerTask() {
+            @Override
+            public void run() {
+                morseText.setText(morseText.getText() + " ");
+
+                String[] morseTextArray = morseText.getText().toString().split(" ");
+                char newLetter = translator.morseToChar(morseTextArray[morseTextArray.length - 1]);
+
+                if(newLetter == '@'){
+                    deleteMistake();
+                    return;
+                }
+
+                translatedText.setText(translatedText.getText().toString() + newLetter);
+            }
+        };
+
+        spaceTimer = new Timer();
+
+        spaceTimer.schedule(spaceTask, (int)(timerDelay * (3.0 / 7.0)));
+    }
+
+    private void deleteMistake(){
+        String[] substringsMorse = morseText.getText().toString().split(" ");
+        morseText.setText("");
+
+        for(int i = 0; i < substringsMorse.length - 1; i++){
+            morseText.setText(morseText.getText() + substringsMorse[i] + " ");
+        }
+
+        slashTimer.cancel();
+        spaceTimer.cancel();
+    }
+
 }
