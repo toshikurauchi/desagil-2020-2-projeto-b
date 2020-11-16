@@ -1,11 +1,14 @@
 package br.pro.hashi.ensino.desagil.projeto1;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.telephony.SmsManager;
 import android.util.Log;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.LinkedList;
 import java.util.Timer;
@@ -24,6 +27,7 @@ public class SecondActivity extends AppCompatActivity {
     private Timer slashTimer, spaceTimer;
     private long timerDelay;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,7 +35,7 @@ public class SecondActivity extends AppCompatActivity {
 
         morseButton = findViewById(R.id.morse_btn);
         contactButton = findViewById(R.id.contactButton);
-        checkButton = findViewById(R.id.check);
+        checkButton = findViewById(R.id.aprovado);
         backspaceButton = findViewById(R.id.backspace);
         translatedText = findViewById(R.id.textMorse);
         morseText = findViewById(R.id.textTranslate);
@@ -40,6 +44,9 @@ public class SecondActivity extends AppCompatActivity {
         translator = new Translator();
 
         timerDelay = 1600;
+
+        Intent intent = getIntent();
+        String message = intent.getStringExtra("Message");
 
         morseButton.setOnClickListener((view -> {
             morseText.setText(morseText.getText() + ".");
@@ -89,6 +96,23 @@ public class SecondActivity extends AppCompatActivity {
         cuidadorButton.setOnClickListener((view -> {
             morseText.setText("..... ..... ..... ..... ..... ..... ..... .....");
             translatedText.setText("55555555");
+        }));
+
+        checkButton.setOnClickListener((view -> {
+            String phoneNumber = translatedText.getText().toString();
+            if(phoneNumber.isEmpty()){
+                showToast("Número vazio ou inválido!");
+                return;
+            }
+            if(message.isEmpty()) {
+                showToast("Mensagem vazia ou inválida!");
+                return;
+            }
+            SmsManager manager = SmsManager.getDefault();
+            manager.sendTextMessage(phoneNumber, null, message, null, null);
+            showToast("Mensagem enviada!");
+            translatedText.setText("");
+            morseText.setText("");
         }));
 
     }
@@ -143,5 +167,10 @@ public class SecondActivity extends AppCompatActivity {
 
         slashTimer.cancel();
         spaceTimer.cancel();
+    }
+
+    private void showToast(String text) {
+        Toast toast = Toast.makeText(this, text, Toast.LENGTH_SHORT);
+        toast.show();
     }
 }
