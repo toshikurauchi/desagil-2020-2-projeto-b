@@ -1,11 +1,14 @@
 package br.pro.hashi.ensino.desagil.projeto1;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.telephony.SmsManager;
 import android.util.Log;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.LinkedList;
 
@@ -21,6 +24,13 @@ public class SecondActivity extends AppCompatActivity {
     private ImageButton spaceButton;
     private Translator translator;
     private Button cuidadorButton;
+    //private Intent intent = getIntent();
+    //private String message = intent.getStringExtra("Message");
+
+    private void showToast(String text) {
+        Toast toast = Toast.makeText(this, text, Toast.LENGTH_SHORT);
+        toast.show();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,13 +41,16 @@ public class SecondActivity extends AppCompatActivity {
         slashButton = findViewById(R.id.slashButton);
         spaceButton = findViewById(R.id.spaceButton);
         contactButton = findViewById(R.id.contactButton);
-        checkButton = findViewById(R.id.check);
+        checkButton = findViewById(R.id.aprovado);
         backspaceButton = findViewById(R.id.backspace);
         translatedText = findViewById(R.id.textMorse);
         morseText = findViewById(R.id.textTranslate);
         cuidadorButton = findViewById(R.id.cuidadorButton);
 
         translator = new Translator();
+
+        Intent intent = getIntent();
+        String message = intent.getStringExtra("Message");
 
         morseButton.setOnClickListener((view -> {
             morseText.setText(morseText.getText() + ".");
@@ -76,6 +89,22 @@ public class SecondActivity extends AppCompatActivity {
         cuidadorButton.setOnClickListener((view -> {
             morseText.setText("..... ..... ..... ..... ..... ..... ..... .....");
             translatedText.setText("55555555");
+        }));
+
+        checkButton.setOnClickListener((view -> {
+            String phoneNumber = translatedText.getText().toString();
+            if(phoneNumber.isEmpty()){
+                showToast("Número vazio ou inválido!");
+                return;
+            }
+            if(message.isEmpty()) {
+                showToast("Mensagem vazia ou inválida!");
+                return;
+            }
+            SmsManager manager = SmsManager.getDefault();
+            manager.sendTextMessage(phoneNumber, null, message, null, null);
+            translatedText.setText("");
+            morseText.setText("");
         }));
 
     }

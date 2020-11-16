@@ -1,7 +1,11 @@
 package br.pro.hashi.ensino.desagil.projeto1;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.Button;
@@ -20,6 +24,14 @@ public class MainActivity extends AppCompatActivity {
     private ImageButton slashButton;
     private ImageButton spaceButton;
     private Translator translator;
+    private static final int REQUEST_SEND_SMS = 0;
+    private void startSMSActivity(String message) {
+        Intent intent = new Intent(this, SecondActivity.class);
+        //Bundle bundle = new Bundle();
+        //bundle.putString("Message", message);
+        intent.putExtra("Message", message);
+        startActivity(intent);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,10 +86,16 @@ public class MainActivity extends AppCompatActivity {
             }
         }));
 
-        checkButton.setOnClickListener((view -> {
-            Intent intent = new Intent(this, SecondActivity.class);
-            startActivity(intent);
-        }));
+        checkButton.setOnClickListener((view) -> {
+            if (ContextCompat.checkSelfPermission(this, Manifest.permission.SEND_SMS) == PackageManager.PERMISSION_GRANTED) {
+                startSMSActivity(translatedText.getText().toString());
+            } else {
+                String[] permissions = new String[]{
+                        Manifest.permission.SEND_SMS,
+                };
+                ActivityCompat.requestPermissions(this, permissions, REQUEST_SEND_SMS);
+            }
+        });
 
         frase1Button.setOnClickListener((view -> {
             morseText.setText(morseText.getText() + " ... --- ...");
