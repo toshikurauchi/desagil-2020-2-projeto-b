@@ -1,10 +1,16 @@
 package br.pro.hashi.ensino.desagil.projeto1;
 
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import java.util.LinkedList;
@@ -21,6 +27,7 @@ public class SecondActivity extends AppCompatActivity {
     private ImageButton spaceButton;
     private Translator translator;
     private Button cuidadorButton;
+    private ListView contactListview;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +42,8 @@ public class SecondActivity extends AppCompatActivity {
         backspaceButton = findViewById(R.id.backspace);
         translatedText = findViewById(R.id.textMorse);
         morseText = findViewById(R.id.textTranslate);
-        cuidadorButton = findViewById(R.id.cuidadorButton);
+        contactListview = findViewById(R.id.Lista_contato);
+
 
         translator = new Translator();
 
@@ -73,10 +81,26 @@ public class SecondActivity extends AppCompatActivity {
             }
         }));
 
-        cuidadorButton.setOnClickListener((view -> {
-            morseText.setText("..... ..... ..... ..... ..... ..... ..... .....");
-            translatedText.setText("55555555");
-        }));
+
+        LinkedList<Contact> contacts = new LinkedList<>();
+        contacts.add(new Contact("Gabriel", "1234") );
+        contacts.add(new Contact("Andresa", "5678") );
+        contacts.add(new Contact("Toshi", "1234") );
+        contacts.add(new Contact("Caio", "5678") );
+        
+        contactListview.setAdapter(new ArrayAdapter<Contact>(this,android.R.layout.simple_list_item_2, android.R.id.text1, contacts){
+            @Override
+            public View getView(int position, View convertView, ViewGroup parent) {
+                View view = super.getView(position, convertView, parent);
+                TextView text1 = (TextView) view.findViewById(android.R.id.text1);
+                TextView text2 = (TextView) view.findViewById(android.R.id.text2);
+
+                text1.setText(contacts.get(position).getName());
+                text2.setText(contacts.get(position).getPhone());
+                return view;
+            }
+        });
+
 
     }
 }

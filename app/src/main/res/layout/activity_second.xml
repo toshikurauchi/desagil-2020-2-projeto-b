@@ -71,17 +71,14 @@
         android:layout_weight="0.5"
         android:orientation="vertical">
 
-        <Button
-            android:id="@+id/cuidadorButton"
-
+        <ListView xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:id="@+id/Lista_contato"
             android:layout_width="match_parent"
-            android:layout_height="34dp"
-            android:background="@drawable/contactbuttonshape"
+            android:layout_height="wrap_content"
+            tools:context="abhiandroid.com.listexample.MainActivity">
+        </ListView>
 
-            android:gravity="left"
-            android:text="  Cuidador"
-            android:textColor="#787878"
-            android:textSize="20sp" />
     </LinearLayout>
 
     <LinearLayout
