@@ -103,6 +103,7 @@ public class SecondActivity extends AppCompatActivity {
             }
             SmsManager manager = SmsManager.getDefault();
             manager.sendTextMessage(phoneNumber, null, message, null, null);
+            showToast("Mensagem enviada!");
             translatedText.setText("");
             morseText.setText("");
         }));
