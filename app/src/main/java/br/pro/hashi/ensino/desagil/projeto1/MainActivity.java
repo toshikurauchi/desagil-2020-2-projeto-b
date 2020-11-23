@@ -13,11 +13,9 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
-
 import java.util.LinkedList;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -157,7 +155,10 @@ public class MainActivity extends AppCompatActivity {
                     ActivityCompat.requestPermissions(this, permissions, REQUEST_SEND_SMS);
                 }
             } else {
-                messages.add(new Message(translatedText.getText().toString()));
+                String finalMessage = translatedText.getText().toString().substring(0, translatedText.getText().length() - 1);
+                messages.add(new Message(finalMessage));
+                Log.v("TESTE", translatedText.getText().toString());
+
                 linkedListAdapter.notifyDataSetChanged();
                 morseText.setText("");
                 translatedText.setText("");
