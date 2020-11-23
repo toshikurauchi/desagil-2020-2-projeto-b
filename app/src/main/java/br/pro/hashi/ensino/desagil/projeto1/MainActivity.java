@@ -8,20 +8,26 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ListView;
 import android.widget.TextView;
 
+import java.util.LinkedList;
 import java.util.Timer;
 import java.util.TimerTask;
 
 public class MainActivity extends AppCompatActivity {
 
     private ImageButton checkButton, backspaceButton;
-    private Button frase1Button, frase2Button, morseButton;
+    private Button morseButton;
     private TextView morseText, translatedText;
     private Translator translator;
     private Timer slashTimer, spaceTimer;
+    private ListView messageListview;
     private long timerDelay;
     private static final int REQUEST_SEND_SMS = 0;
     
@@ -32,13 +38,12 @@ public class MainActivity extends AppCompatActivity {
 
         morseButton = findViewById(R.id.morse_btn);
 
-        frase1Button = findViewById(R.id.frasePronta1);
-        frase2Button = findViewById(R.id.frasePronta2);
 
         checkButton = findViewById(R.id.check);
         backspaceButton = findViewById(R.id.backspace);
         translatedText = findViewById(R.id.textMorse);
         morseText = findViewById(R.id.textTranslate);
+        messageListview = findViewById(R.id.Lista_mensagens);
 
         translator = new Translator();
 
@@ -100,15 +105,22 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        frase1Button.setOnClickListener((view -> {
-            morseText.setText(morseText.getText() + "... --- ...");
-            translatedText.setText(translatedText.getText() + " SOS");
-        }));
+        LinkedList<Message> messages = new LinkedList<>();
+        messages.add(new Message("S.O.S"));
+        messages.add(new Message("Oi") );
+        messages.add(new Message("Logo te respondo") );
+        messages.add(new Message("ate mais tarde") );
 
-        frase2Button.setOnClickListener((view -> {
-            morseText.setText(morseText.getText() + ".-.. --- --. --- / - . / .-. . ... .--. --- -. -.. ---");
-            translatedText.setText(translatedText.getText() + " Logo te respondo");
-        }));
+        messageListview.setAdapter(new ArrayAdapter<Message>(this,android.R.layout.simple_list_item_2, android.R.id.text1, messages){
+            @Override
+            public View getView(int position, View convertView, ViewGroup parent) {
+                View view = super.getView(position, convertView, parent);
+                TextView text1 = (TextView) view.findViewById(android.R.id.text1);
+
+                text1.setText(messages.get(position).getName());
+                return view;
+            }
+        });
     }
 
     private void createSlashTimer() {
