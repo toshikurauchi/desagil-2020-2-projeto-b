@@ -7,6 +7,7 @@ import android.telephony.SmsManager;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -126,6 +127,23 @@ public class SecondActivity extends AppCompatActivity {
 
         contactListview.setAdapter(linkedListAdapter);
 
+        contactListview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                Contact contact = (Contact) parent.getItemAtPosition(position);
+
+                translatedText.setText(contact.getPhone() + " ");
+                morseText.setText("");
+
+                char[] substring = contact.getPhone().toCharArray();
+
+                for(char c : substring){
+                    morseText.setText(morseText.getText() + translator.charToMorse(c) + " ");
+                }
+                morseText.setText(morseText.getText() + "/ ");
+            }
+        });
+
         checkButton.setOnClickListener((view -> {
             if(pageState == false) {
                 String phoneNumber = translatedText.getText().toString();
@@ -147,8 +165,6 @@ public class SecondActivity extends AppCompatActivity {
                 String newContactName = translatedText.getText().toString();
                 contacts.add(new Contact(newContactName, newContactNumber));
                 linkedListAdapter.notifyDataSetChanged();
-
-                Log.v("Teste", newContactName + " " + newContactNumber);
 
                 translatedText.setText("");
                 morseText.setText("");
