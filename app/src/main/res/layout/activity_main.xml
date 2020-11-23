@@ -29,46 +29,49 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/contacts"
+        android:id="@+id/new_message"
         android:layout_width="fill_parent"
-        android:layout_height="0dp"
-        android:layout_weight="0.5"
+        android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:orientation="vertical">
+
+        <Button
+            android:id="@+id/contactButton"
+
+            android:layout_width="match_parent"
+            android:layout_height="34dp"
+            android:background="@drawable/contactbuttonshape"
+
+            android:gravity="left"
+            android:text="  + Nova Mensagem Rapida"
+            android:textColor="#787878"
+            android:textSize="20sp" />
     </LinearLayout>
 
 
     <LinearLayout
+        android:id="@+id/contacts"
         android:layout_width="fill_parent"
-        android:layout_height="71dp"
+        android:layout_height="0dp"
+        android:layout_gravity="center"
+        android:layout_weight="0.5"
+        android:orientation="vertical">
+        <ListView
+            android:id="@+id/Lista_mensagens"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:context="abhiandroid.com.listexample.MainActivity"
+            android:background="@drawable/textbuttonshape"></ListView>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="3dp"
         android:layout_weight="0.2"
         android:background="#B1B1B1"
         android:gravity="center"
         android:orientation="vertical">
-
-        <Button
-            android:id="@+id/frasePronta1"
-
-            android:layout_width="match_parent"
-            android:layout_height="30dp"
-            android:background="@drawable/textbuttonshape"
-
-            android:gravity="left"
-            android:hint="  S.O.S"
-            android:textColorHint="#000000"
-            android:textSize="18sp" />
-
-        <Button
-            android:id="@+id/frasePronta2"
-
-            android:layout_width="match_parent"
-            android:layout_height="30dp"
-            android:background="@drawable/textbuttonshape"
-
-            android:gravity="left"
-            android:hint="  Logo te respondo"
-            android:textColorHint="#000000"
-            android:textSize="18sp" />
 
         <TextView
             android:id="@+id/textMorse"
@@ -78,7 +81,7 @@
             android:layout_weight="0.1"
             android:background="@drawable/border"
             android:backgroundTint="#FFFFFF"
-            android:hint="  Normal text box"
+            android:hint="  Entre com sua mensagem..."
             android:textSize="20sp"
             tools:ignore="NestedWeights" />
 
@@ -91,7 +94,7 @@
             android:layout_weight="0.1"
             android:background="@drawable/border"
             android:backgroundTint="#FFFFFF"
-            android:hint="  Morse text box"
+            android:hint="  Entre com sua mensagem..."
             android:textSize="20sp"
             tools:ignore="NestedWeights" />
     </LinearLayout>
