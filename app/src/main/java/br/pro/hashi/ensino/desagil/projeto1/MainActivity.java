@@ -4,13 +4,16 @@ import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+import androidx.appcompat.app.AppCompatActivity;
+
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
+
+import com.giphy.sdk.ui.Giphy;
+import com.giphy.sdk.ui.views.GiphyDialogFragment;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -28,7 +31,12 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_main);
+
+        Giphy.INSTANCE.configure(this, "ekMdTgivjuGIHTy7uY93mstOxFBgOHSp", true, null);
+
+        new GiphyDialogFragment().show(getSupportFragmentManager(), "giphy_dialog");
 
         morseButton = findViewById(R.id.morse_btn);
 
