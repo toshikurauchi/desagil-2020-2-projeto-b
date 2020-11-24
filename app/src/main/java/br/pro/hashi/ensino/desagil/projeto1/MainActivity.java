@@ -16,8 +16,6 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
-import com.giphy.sdk.ui.Giphy;
-import com.giphy.sdk.ui.views.GiphyDialogFragment;
 import java.util.LinkedList;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -36,16 +34,11 @@ public class MainActivity extends AppCompatActivity {
     private boolean mustSave;
     private ArrayAdapter linkedListAdapter;
     private LinkedList<Message> messages;
-    private GiphyDialogFragment giphyDialogFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        Giphy.INSTANCE.configure(this, "ekMdTgivjuGIHTy7uY93mstOxFBgOHSp", true, null);
-
-        giphyDialogFragment = new GiphyDialogFragment();//.show(getSupportFragmentManager(), "giphy_dialog");
 
         morseButton = findViewById(R.id.morse_btn);
         checkButton = findViewById(R.id.check);
