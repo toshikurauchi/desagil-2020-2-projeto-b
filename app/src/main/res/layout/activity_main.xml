@@ -81,7 +81,7 @@
             android:layout_weight="0.1"
             android:background="@drawable/border"
             android:backgroundTint="#FFFFFF"
-            android:hint="  Normal text box"
+            android:hint="  Entre com sua mensagem..."
             android:textSize="20sp"
             tools:ignore="NestedWeights" />
 
@@ -94,7 +94,7 @@
             android:layout_weight="0.1"
             android:background="@drawable/border"
             android:backgroundTint="#FFFFFF"
-            android:hint="  Morse text box"
+            android:hint="  Entre com sua mensagem..."
             android:textSize="20sp"
             tools:ignore="NestedWeights" />
     </LinearLayout>

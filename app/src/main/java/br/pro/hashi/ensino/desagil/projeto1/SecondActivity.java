@@ -1,12 +1,12 @@
 package br.pro.hashi.ensino.desagil.projeto1;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.telephony.SmsManager;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -32,6 +32,10 @@ public class SecondActivity extends AppCompatActivity {
     private Timer slashTimer, spaceTimer;
     private long timerDelay;
 
+    private String newContactNumber;
+    private Boolean pageState;
+    private LinkedList<Contact> contacts;
+    private ArrayAdapter linkedListAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,10 +50,13 @@ public class SecondActivity extends AppCompatActivity {
         morseText = findViewById(R.id.textTranslate);
         contactListview = findViewById(R.id.Lista_contato);
 
-
         translator = new Translator();
 
         timerDelay = 1600;
+
+        pageState = false;
+
+        contacts = new LinkedList<>();
 
         Intent intent = getIntent();
         String message = intent.getStringExtra("Message");
@@ -99,14 +106,12 @@ public class SecondActivity extends AppCompatActivity {
 
         }));
 
-
-        LinkedList<Contact> contacts = new LinkedList<>();
         contacts.add(new Contact("Gabriel", "1234") );
         contacts.add(new Contact("Andresa", "5678") );
         contacts.add(new Contact("Toshi", "1234") );
         contacts.add(new Contact("Caio", "5678") );
-        
-        contactListview.setAdapter(new ArrayAdapter<Contact>(this,android.R.layout.simple_list_item_2, android.R.id.text1, contacts){
+
+        linkedListAdapter = new ArrayAdapter<Contact>(this,android.R.layout.simple_list_item_2, android.R.id.text1, contacts){
             @Override
             public View getView(int position, View convertView, ViewGroup parent) {
                 View view = super.getView(position, convertView, parent);
@@ -117,24 +122,68 @@ public class SecondActivity extends AppCompatActivity {
                 text2.setText(contacts.get(position).getPhone());
                 return view;
             }
+        };
+
+        contactListview.setAdapter(linkedListAdapter);
+
+        contactListview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                Contact contact = (Contact) parent.getItemAtPosition(position);
+
+                translatedText.setText(contact.getPhone() + " ");
+                morseText.setText("");
+
+                char[] substring = contact.getPhone().toCharArray();
+
+                for(char c : substring){
+                    morseText.setText(morseText.getText() + translator.charToMorse(c) + " ");
+                }
+                morseText.setText(morseText.getText() + "/ ");
+            }
         });
 
-
         checkButton.setOnClickListener((view -> {
-            String phoneNumber = translatedText.getText().toString();
-            if(phoneNumber.isEmpty()){
-                showToast("Número vazio ou inválido!");
-                return;
+            if(pageState == false) {
+                String phoneNumber = translatedText.getText().toString();
+                if (phoneNumber.isEmpty()) {
+                    showToast("Número vazio ou inválido!");
+                    return;
+                }
+                if (message.isEmpty()) {
+                    showToast("Mensagem vazia ou inválida!");
+                    return;
+                }
+                SmsManager manager = SmsManager.getDefault();
+                manager.sendTextMessage(phoneNumber, null, message, null, null);
+                showToast("Mensagem enviada!");
+                translatedText.setText("");
+                morseText.setText("");
             }
-            if(message.isEmpty()) {
-                showToast("Mensagem vazia ou inválida!");
-                return;
+            else {
+                String newContactName = translatedText.getText().toString();
+                contacts.add(new Contact(newContactName, newContactNumber));
+                linkedListAdapter.notifyDataSetChanged();
+
+                translatedText.setText("");
+                morseText.setText("");
+                translatedText.setHint("Número do contato");
+                morseText.setHint("Número do contato em morse");
+
+                pageState = false;
             }
-            SmsManager manager = SmsManager.getDefault();
-            manager.sendTextMessage(phoneNumber, null, message, null, null);
-            showToast("Mensagem enviada!");
-            translatedText.setText("");
-            morseText.setText("");
+        }));
+
+        contactButton.setOnClickListener((view -> {
+            if(translatedText.getText().length() > 0){
+                newContactNumber = translatedText.getText().toString();
+                translatedText.setText("");
+                morseText.setText("");
+                translatedText.setHint("Nome do novo contato");
+                morseText.setHint("Nome do novo contato em morse");
+
+                pageState = true;
+            }
         }));
 
     }
