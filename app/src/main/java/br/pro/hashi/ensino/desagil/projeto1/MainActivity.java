@@ -13,11 +13,14 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+
 import com.giphy.sdk.ui.Giphy;
 import com.giphy.sdk.ui.views.GiphyDialogFragment;
+
 import java.util.LinkedList;
 import java.util.Timer;
 import java.util.TimerTask;
