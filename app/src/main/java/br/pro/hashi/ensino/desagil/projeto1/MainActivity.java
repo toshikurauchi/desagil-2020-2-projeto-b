@@ -80,7 +80,6 @@ public class MainActivity extends AppCompatActivity {
                 morseText.setText(morseText.getText() + "/ ");
             }
         });
-
         translator = new Translator();
 
         timerDelay = 1600;
@@ -163,6 +162,22 @@ public class MainActivity extends AppCompatActivity {
                 morseText.setHint("  Entre com sua mensagem...");
                 translatedText.setHint("  Entre com sua mensagem...");
                 mustSave = false;
+            }
+        });
+        LinkedList<Message> messages = new LinkedList<>();
+        messages.add(new Message("S.O.S"));
+        messages.add(new Message("Oi") );
+        messages.add(new Message("Logo te respondo") );
+        messages.add(new Message("ate mais tarde") );
+
+        messageListview.setAdapter(new ArrayAdapter<Message>(this,android.R.layout.simple_list_item_2, android.R.id.text1, messages){
+            @Override
+            public View getView(int position, View convertView, ViewGroup parent) {
+                View view = super.getView(position, convertView, parent);
+                TextView text1 = (TextView) view.findViewById(android.R.id.text1);
+
+                text1.setText(messages.get(position).getName());
+                return view;
             }
         });
     }
