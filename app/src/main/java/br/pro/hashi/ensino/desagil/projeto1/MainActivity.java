@@ -13,14 +13,11 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
-
 import com.giphy.sdk.ui.Giphy;
 import com.giphy.sdk.ui.views.GiphyDialogFragment;
-
 import java.util.LinkedList;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -173,6 +170,22 @@ public class MainActivity extends AppCompatActivity {
                 morseText.setHint("  Entre com sua mensagem...");
                 translatedText.setHint("  Entre com sua mensagem...");
                 mustSave = false;
+            }
+        });
+        LinkedList<Message> messages = new LinkedList<>();
+        messages.add(new Message("S.O.S"));
+        messages.add(new Message("Oi") );
+        messages.add(new Message("Logo te respondo") );
+        messages.add(new Message("ate mais tarde") );
+
+        messageListview.setAdapter(new ArrayAdapter<Message>(this,android.R.layout.simple_list_item_2, android.R.id.text1, messages){
+            @Override
+            public View getView(int position, View convertView, ViewGroup parent) {
+                View view = super.getView(position, convertView, parent);
+                TextView text1 = (TextView) view.findViewById(android.R.id.text1);
+
+                text1.setText(messages.get(position).getName());
+                return view;
             }
         });
     }
